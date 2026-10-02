@@ -1,0 +1,22 @@
+{
+  "format": 1,
+  "packs": {
+    "en": {
+      "name": "English",
+      "version": "2026.10.1",
+      "file": "packs/en.tsv",
+      "entries": 20000,
+      "withMeaning": 14447,
+      "bytes": 1276128,
+      "sha256": "682c0573cc1ea333348763c31624d181fbbdfe8dd7f1dc770a0600d9cf37538e",
+      "sources": [
+        "FrequencyWords (CC BY-SA 4.0)",
+        "kengdic (CC BY-SA 3.0 / LGPL-2.0)",
+        "ipa-dict (MIT)",
+        "Princeton WordNet 3.0 (WordNet License)"
+      ]
+    }
+  },
+  "ref": "v1",
+  "license": "CC BY-SA (see README); scripts MIT"
+}
