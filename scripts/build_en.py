@@ -185,7 +185,7 @@ def headwords(wn, size, has_meaning):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--size', type=int, default=20000)
-    ap.add_argument('--version', default='')
+    ap.add_argument('--version', required=True, help='e.g. 2026.10.1 — becomes part of the file name')
     args = ap.parse_args()
 
     wn = load_wordnet()
@@ -203,7 +203,9 @@ def main():
 
     header = '#vocacurve-langpack\ten\tko\tterm\tmeanings\tipa\tpos\texample'
     body = header + '\n' + '\n'.join(rows) + '\n'
-    out = os.path.join(ROOT, 'packs', 'en.tsv')
+    # Versioned file name: a new version is a new URL, so CDN caches never serve a stale pack.
+    rel = f'packs/en/{args.version}.tsv'
+    out = os.path.join(ROOT, rel)
     os.makedirs(os.path.dirname(out), exist_ok=True)
     with open(out, 'w', encoding='utf-8') as f:
         f.write(body)
@@ -213,8 +215,8 @@ def main():
     manifest = json.load(open(manifest_path)) if os.path.exists(manifest_path) else {'format': 1, 'packs': {}}
     manifest['packs']['en'] = {
         'name': 'English',
-        'version': args.version or manifest['packs'].get('en', {}).get('version', '1'),
-        'file': 'packs/en.tsv',
+        'version': args.version,
+        'file': rel,
         'entries': len(rows),
         'withMeaning': with_meaning,
         'bytes': len(data),

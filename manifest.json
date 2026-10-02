@@ -4,7 +4,7 @@
     "en": {
       "name": "English",
       "version": "2026.10.1",
-      "file": "packs/en.tsv",
+      "file": "packs/en/2026.10.1.tsv",
       "entries": 20000,
       "withMeaning": 14447,
       "bytes": 1276128,
@@ -17,6 +17,5 @@
       ]
     }
   },
-  "ref": "v1",
   "license": "CC BY-SA (see README); scripts MIT"
 }

@@ -8,10 +8,14 @@ and fills in meanings, pronunciation, part of speech and examples without any AI
 |---|---|---|---|
 | `en` English → Korean | 20,000 | 14,447 (72%) | 1.28 MB / 0.56 MB |
 
-`manifest.json` lists every pack with its version, size and SHA-256.
-The app reads it from `@main` and downloads the pack file from the git tag in `ref`.
+`manifest.json` lists every pack with its version, file, size and SHA-256. Pack files carry their
+version in the name (`packs/en/2026.10.1.tsv`), so a new version is a new URL and caches never serve
+an old pack. The app reads `manifest.json` from `main` (via jsDelivr, falling back to
+raw.githubusercontent.com) and re-downloads a pack only when its version changes.
 
-## Pack format (`packs/<lang>.tsv`)
+**The repository must stay public** so that learners' browsers can download the packs.
+
+## Pack format (`packs/<lang>/<version>.tsv`)
 
 UTF-8, tab-separated, one word per line. The first line is a header starting with `#vocacurve-langpack`.
 
@@ -30,8 +34,9 @@ pip install nltk
 python3 scripts/build_en.py --version 2026.10.1
 ```
 
-Sources are downloaded into `.cache/` on the first run. After rebuilding, commit, create a new tag
-(e.g. `v2`) and set `ref` in `manifest.json` to it so apps pick up the update.
+Sources are downloaded into `.cache/` on the first run. The script writes `packs/en/<version>.tsv` and
+updates `manifest.json`; commit both. Keep the previous version's file for a day or two (cached
+manifests may still point to it), then delete it.
 
 ## Sources and licenses
 
